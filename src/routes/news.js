@@ -96,7 +96,7 @@ const uploads = multer({
 router.post("/newsImage/:id",auth,uploads.single("image"),async (req, res) => {
     try {
       const _id = req.params.id;
-      const news = await News.findOne({ _id });
+      const news = await News.findOne({ _id,owner: req.journalist._id });
       if (!news) {
         return res.status(404).send("No news is found");
       } else {
